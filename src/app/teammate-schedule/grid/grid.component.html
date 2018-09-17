@@ -1,0 +1,12 @@
+<div class="form-group row">
+    <label class="col-2 col-form-label"></label>
+    <div class="col-3">
+        <button type="button" class="btn btn-primary" (click)="populateGrid()">Get Schedule</button>
+  </div>
+</div>
+
+<ag-grid-angular style="width: 850px; height: 500px;" class="ag-theme-balham"
+[columnDefs]="columnDefs"
+[rowData]="rowData"
+(gridReady)="onGridReadyHandler($event)">
+</ag-grid-angular>

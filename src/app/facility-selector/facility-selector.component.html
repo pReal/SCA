@@ -1,0 +1,30 @@
+<form>
+    <div class="form-group row">
+        <label for="facility" class="col-2 col-form-label">Facility</label>
+        <div class="col-3">
+            <select class="form-control" id="facility" (change)="facilityChangedHandler($event)">
+                <option value="">Select Facility</option>
+                <option *ngFor="let facility of facilities" value="{{facility.facilityId}}">{{facility.facilityName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="weekStartDate" class="col-2 col-form-label">Week Start Date</label>
+        <div class="col-3 input-group">
+            <input class="form-control" #dateSelector [disabled]="isDatepickerDisabled ? '' : null" placeholder="yyyy-mm-dd" name="weekStartDate"
+                [(ngModel)]="datepickerModel" ngbDatepicker #d="ngbDatepicker" [dayTemplate]="customDay" (dateSelect)="dateChangedHandler($event)"
+                [markDisabled]="idDateDisabled" (blur)="dateEnteredHandler(dateSelector.value)">
+            <div class="input-group-append" [hidden]="isDatepickerDisabled">
+                <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled"
+    let-focused="focused">
+    <span class="custom-day" [class.underStaffed]="isUnderstaffed(date)" [class.focused]="focused" [class.bg-primary]="selected"
+        [class.text-muted]="disabled">
+        {{ date.day }}
+    </span>
+</ng-template>
